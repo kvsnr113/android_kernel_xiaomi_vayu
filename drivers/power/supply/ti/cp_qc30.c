@@ -195,7 +195,7 @@ static int qc3_get_bms_fastcharge_mode(void)
 	rc = power_supply_get_property(pm_state.bms_psy,
 				POWER_SUPPLY_PROP_FASTCHARGE_MODE, &pval);
 	if (rc < 0) {
-		pr_err("Couldn't get fastcharge mode:%d\n", rc);
+		pr_debug("Couldn't get fastcharge mode:%d\n", rc);
 		return 0;
 	}
 
@@ -220,7 +220,7 @@ static int qc3_get_batt_current_thermal_level(int *level)
 			POWER_SUPPLY_PROP_CHARGE_CONTROL_LIMIT, &val);
 
 	if (rc < 0) {
-		pr_err("Couldn't get themal level:%d\n", rc);
+		pr_debug("Couldn't get themal level:%d\n", rc);
 		return rc;
 	}
 
@@ -255,7 +255,7 @@ static bool qc3_disable_cp_by_jeita_status(void)
 			POWER_SUPPLY_PROP_TEMP, &val);
 
 	if (ret < 0) {
-		pr_err("Couldn't get batt temp prop:%d\n", ret);
+		pr_debug("Couldn't get batt temp prop:%d\n", ret);
 		return false;
 	}
 
@@ -722,7 +722,7 @@ static int cp_flash2_charge(unsigned int port)
 		return -CP_ENABLE_FAIL;
 	else if (thermal_level >= MAX_THERMAL_LEVEL
 			|| pm_state.is_temp_out_fc2_range) {
-		pr_info("thermal level too high or batt temp is out of fc2 range\n");
+		pr_debug("thermal level too high or batt temp is out of fc2 range\n");
 		return CP_ENABLE_FAIL;
 	} else if (pm_state.slowly_charging) {
 		pr_info("slowly charging feature is enabled!\n");
@@ -833,7 +833,7 @@ void cp_statemachine(unsigned int port)
 			if (thermal_level >= MAX_THERMAL_LEVEL
 					|| pm_state.slowly_charging || pm_state.is_temp_out_fc2_range) {
 				cp_move_state(CP_STATE_SW_ENTRY);
-				pr_info("battery temperature is too high or slowly charging enabled, waiting for cooldown...\n");
+				pr_debug("battery temperature is too high or slowly charging enabled, waiting for cooldown...\n");
 			} else if (pm_state.bq2597x.vbat_volt < sys_config.min_vbat_start_flash2) {
 				cp_move_state(CP_STATE_SW_ENTRY);
 			} else if (pm_state.bq2597x.vbat_volt > sys_config.bat_volt_lp_lmt - 100
@@ -883,7 +883,7 @@ void cp_statemachine(unsigned int port)
 			pr_debug("thermal or batt temp recovery...\n");
 			recovery = false;
 		} else {
-			pr_info("thermal(%d) too high or batt temp out of range\n", thermal_level);
+			pr_debug("thermal(%d) too high or batt temp out of range\n", thermal_level);
 		}
 		cp_get_batt_capacity();
 		if (pm_state.bq2597x.vbat_volt > sys_config.bat_volt_lp_lmt - 100

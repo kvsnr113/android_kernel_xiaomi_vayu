@@ -867,12 +867,12 @@ static int usbpd_pm_fc2_charge_algo(struct usbpd_pm *pdpm)
 	usbpd_pm_check_slowly_charging_enabled(pdpm);
 
 	if (pdpm->cp.bat_therm_fault) { /* battery overheat, stop charge*/
-		pr_info("bat_therm_fault:%d\n", pdpm->cp.bat_therm_fault);
+		pr_debug("bat_therm_fault:%d\n", pdpm->cp.bat_therm_fault);
 		return PM_ALGO_RET_THERM_FAULT;
 	} else if (thermal_level >= MAX_THERMAL_LEVEL
 			|| pdpm->is_temp_out_fc2_range) {
-		pr_info("is_temp_out_fc2_range:%d,thermal_level:%d\n", pdpm->is_temp_out_fc2_range, thermal_level);
-		pr_info("thermal level too high or batt temp is out of fc2 range\n");
+		pr_debug("is_temp_out_fc2_range:%d,thermal_level:%d\n", pdpm->is_temp_out_fc2_range, thermal_level);
+		pr_debug("thermal level too high or batt temp is out of fc2 range\n");
 		return PM_ALGO_RET_CHG_DISABLED;
 	} else if (pdpm->cp.bat_ocp_fault || pdpm->cp.bus_ocp_fault
 			|| pdpm->cp.bat_ovp_fault || pdpm->cp.bus_ovp_fault) {
@@ -975,7 +975,7 @@ static int usbpd_pm_sm(struct usbpd_pm *pdpm)
 		usbpd_pm_check_slowly_charging_enabled(pdpm);
 		pd_get_batt_current_thermal_level(pdpm, &thermal_level);
 		pdpm->is_temp_out_fc2_range = pd_disable_cp_by_jeita_status(pdpm);
-		pr_info("is_temp_out_fc2_range:%d\n", pdpm->is_temp_out_fc2_range);
+		pr_debug("is_temp_out_fc2_range:%d\n", pdpm->is_temp_out_fc2_range);
 		pd_get_batt_capacity(pdpm, &capacity);
 		effective_fcc_val = usbpd_get_effective_fcc_val(pdpm);
 
@@ -999,11 +999,11 @@ static int usbpd_pm_sm(struct usbpd_pm *pdpm)
 			pr_debug("bms digest is not verified, waiting...\n");
 		} else if (thermal_level >= MAX_THERMAL_LEVEL
 				|| pdpm->is_temp_out_fc2_range) {
-			pr_info("battery temperature is too high, waiting for cooldown...\n");
+			pr_debug("battery temperature is too high, waiting for cooldown...\n");
 		} else if (pdpm->sw.slowly_charging) {
 			pr_info("slowly charging feature is on, waiting...\n");
 		} else {
-			pr_info("batt_volt-%d is ok, start flash charging\n",
+			pr_debug("batt_volt-%d is ok, start flash charging\n",
 					pdpm->cp.vbat_volt);
 			usbpd_pm_move_state(pdpm, PD_PM_STATE_FC2_ENTRY);
 		}
