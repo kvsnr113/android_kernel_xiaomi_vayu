@@ -1,0 +1,27 @@
+err() {
+    echo -e "\e[1;41m$*\e[0m"
+}
+
+DEFCONFIG="$1"_defconfig
+
+if [[ "$2" =~ "e" ]]; then
+    MAKE="./makeparallel"
+
+    make -j$(nproc --all) O=out ARCH=arm64 SUBARCH=arm64 $DEFCONFIG
+
+    cp -af out/.config $(pwd)/arch/arm64/configs/$DEFCONFIG
+
+    rm -rf out
+
+    git status
+
+elif [[ "$2" =~ "c" ]]; then
+    git add arch/arm64/configs/$DEFCONFIG
+
+    git commit -asm "ARM64: defconfig: Full Regenerated
+
+Auto regenerated defconfig"
+else
+    err "Please input your command"
+    exit
+fi 
