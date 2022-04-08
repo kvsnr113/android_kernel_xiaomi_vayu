@@ -1,22 +1,22 @@
-TAG="LA.UM.9.1.r1-11700-SMxxx0.0"
+TAG="LA.UM.9.1.r1-11800-SMxxx0.0"
 
 upstream (){
-        git fetch https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/$1 $2
+        git fetch https://git.codelinaro.org/clo/la/platform/vendor/qcom-opensource/wlan/$1 $2
         git merge --signoff FETCH_HEAD
 }
 
 upstream2 (){
-        git fetch https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/$1 $2
+        git fetch https://git.codelinaro.org/clo/la/platform/vendor/qcom-opensource/$1 $2
         git merge --signoff FETCH_HEAD
 }
 
 upstream3 (){
-        git fetch https://source.codeaurora.org/quic/la/platform/vendor/opensource/$1 $2
+        git fetch https://git.codelinaro.org/clo/la/platform/vendor/opensource/$1 $2
         git merge --signoff FETCH_HEAD
 }
 
 upstream4 (){
-        git fetch https://source.codeaurora.org/quic/la/kernel/$1 $2
+        git fetch https://git.codelinaro.org/clo/la/kernel/msm-4.14/$1 $2
         git merge --signoff FETCH_HEAD
 }
 
