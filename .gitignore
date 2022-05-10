@@ -137,3 +137,6 @@ Android.bp
 
 # compile/build script
 build*
+
+# AnyKernel3
+AnyKernel3
