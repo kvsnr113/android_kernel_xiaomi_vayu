@@ -140,3 +140,10 @@ build*
 
 # AnyKernel3
 AnyKernel3
+
+# out/
+out
+
+# .sh & .zip
+*.sh
+*.zip
