@@ -300,6 +300,18 @@ config DEVFREQ_CPU_CPU_LLCC_BW_BOOST_FREQ
 	help
 	  Boost frequency for the CPU LLCC bus.
 
+config DEVFREQ_GPU_BW_BOOST_FREQ
+        int "Boost freq for gpubw device"
+        default "0"
+        help
+          Boost frequency for the GPU bus.
+
+config DEVFREQ_NPU_NPU_DDR_BW_BOOST_FREQ
+        int "Boost freq for npu-npu-ddr-bw device"
+        default "0"
+        help
+          Boost frequency for the NPU bus.
+
 endif
 
 source "drivers/devfreq/event/Kconfig"
