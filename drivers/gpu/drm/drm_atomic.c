@@ -2251,6 +2251,7 @@ static int __drm_mode_atomic_ioctl(struct drm_device *dev, void *data,
 
 	if (!(arg->flags & DRM_MODE_ATOMIC_TEST_ONLY))
 		devfreq_boost_kick(DEVFREQ_CPU_LLCC_DDR_BW);
+		devfreq_boost_kick(DEVFREQ_GPU_BW);
 
 	drm_modeset_acquire_init(&ctx, 0);
 
